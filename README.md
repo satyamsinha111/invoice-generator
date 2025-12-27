@@ -1,6 +1,15 @@
 # Invoice Generator
 
+[![GitHub](https://img.shields.io/badge/GitHub-satyamsinha111%2Finvoice--generator-blue?logo=github)](https://github.com/satyamsinha111/invoice-generator)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/satyamsinha111/invoice-generator/blob/main/CONTRIBUTING.md)
+
 A **professional, secure** invoice generator web application built with Next.js, TypeScript, and Tailwind CSS. Manage multiple invoices with encrypted storage, search functionality, and PDF generation.
+
+📦 **Repository**: [https://github.com/satyamsinha111/invoice-generator](https://github.com/satyamsinha111/invoice-generator)
 
 ## ✨ Key Features
 
@@ -234,6 +243,54 @@ This is a focused invoice generator:
 
 These limitations keep the app simple, fast, and focused on generating professional invoices.
 
+## 🤝 Contributing
+
+We welcome contributions! This is an open-source project.
+
+**GitHub Repository**: [https://github.com/satyamsinha111/invoice-generator](https://github.com/satyamsinha111/invoice-generator)
+
+### How to Contribute
+
+1. **Fork the repository**
+   ```bash
+   git clone https://github.com/satyamsinha111/invoice-generator.git
+   ```
+
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+3. **Make your changes**
+   - Follow the existing code style
+   - Test your changes thoroughly
+   - Update documentation if needed
+
+4. **Commit your changes**
+   ```bash
+   git commit -m "Add: your feature description"
+   ```
+
+5. **Push to your fork**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+6. **Open a Pull Request**
+   - Go to the repository on GitHub
+   - Click "New Pull Request"
+   - Describe your changes
+
+### Areas for Contribution
+
+- 🐛 Bug fixes
+- ✨ New features
+- 📝 Documentation improvements
+- 🎨 UI/UX enhancements
+- 🔒 Security improvements
+- 🌍 Internationalization
+- ♿ Accessibility improvements
+
 ## 📝 License
 
 Open source and available for personal and commercial use.
@@ -243,3 +300,5 @@ Open source and available for personal and commercial use.
 **Built with Next.js, TypeScript, and Tailwind CSS**
 
 *A professional invoice generator that inspires trust and confidence.* 🎯
+
+**GitHub**: [https://github.com/satyamsinha111/invoice-generator](https://github.com/satyamsinha111/invoice-generator)

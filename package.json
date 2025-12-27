@@ -1,7 +1,27 @@
 {
   "name": "invoice-generator",
   "version": "1.0.0",
-  "private": true,
+  "description": "Professional invoice generator with encrypted storage, PDF export, and multi-invoice management",
+  "author": "Satyam Sinha",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/satyamsinha111/invoice-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/satyamsinha111/invoice-generator/issues"
+  },
+  "homepage": "https://github.com/satyamsinha111/invoice-generator#readme",
+  "keywords": [
+    "invoice",
+    "generator",
+    "pdf",
+    "typescript",
+    "nextjs",
+    "encryption",
+    "invoice-management"
+  ],
+  "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
