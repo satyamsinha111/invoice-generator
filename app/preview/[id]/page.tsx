@@ -1,10 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { getInvoice } from '@/lib/storage';
 import { InvoiceData } from '@/lib/types';
 import InvoicePreview from '@/components/InvoicePreview';
+
+// Dynamic import for html2pdf.js (browser only)
+declare const html2pdf: any;
 
 export default function PreviewPage() {
   const router = useRouter();
@@ -14,6 +17,31 @@ export default function PreviewPage() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
+  const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+  const invoiceRef = useRef<HTMLDivElement>(null);
+
+  // Load html2pdf.js script
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !(window as any).html2pdf) {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+      script.async = true;
+      script.onload = () => setIsScriptLoaded(true);
+      script.onerror = () => {
+        setError('Failed to load PDF library. Please refresh the page.');
+        setIsScriptLoaded(false);
+      };
+      document.body.appendChild(script);
+      
+      return () => {
+        if (document.body.contains(script)) {
+          document.body.removeChild(script);
+        }
+      };
+    } else if ((window as any).html2pdf) {
+      setIsScriptLoaded(true);
+    }
+  }, []);
 
   // Load invoice on mount
   useEffect(() => {
@@ -26,40 +54,34 @@ export default function PreviewPage() {
     setIsLoading(false);
   }, [invoiceId]);
 
-  // Generate and download PDF
+  // Generate and download PDF (client-side)
   const handleDownloadPDF = async () => {
-    if (!invoiceData) return;
+    if (!invoiceData || !invoiceRef.current || !isScriptLoaded) return;
     
     setError('');
     setIsGenerating(true);
 
     try {
-      const response = await fetch('/api/generate-pdf', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      // PDF options for html2pdf.js
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: `invoice-${invoiceData.metadata.invoiceNumber}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+          scale: 2,
+          useCORS: true,
+          letterRendering: true
         },
-        body: JSON.stringify(invoiceData),
-      });
+        jsPDF: { 
+          unit: 'mm', 
+          format: 'a4', 
+          orientation: 'portrait' 
+        }
+      };
 
-      if (!response.ok) {
-        throw new Error('Failed to generate PDF');
-      }
-
-      // Create blob from response
-      const blob = await response.blob();
+      // Generate PDF from the invoice preview element
+      await html2pdf().set(opt).from(invoiceRef.current).save();
       
-      // Create download link
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `invoice-${invoiceData.metadata.invoiceNumber}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      
-      // Cleanup
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
     } catch (err) {
       console.error('PDF generation error:', err);
       setError('Failed to generate PDF. Please try again.');
@@ -226,7 +248,7 @@ export default function PreviewPage() {
 
       {/* Preview Content */}
       <div className="container mx-auto px-4 py-8">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-5xl mx-auto" ref={invoiceRef}>
           <InvoicePreview invoiceData={invoiceData} />
         </div>
       </div>
