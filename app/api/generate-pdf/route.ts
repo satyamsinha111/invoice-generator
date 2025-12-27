@@ -394,7 +394,7 @@ export async function POST(request: NextRequest) {
     await browser.close();
 
     // Return PDF as response
-    return new NextResponse(pdf, {
+    return new Response(pdf, {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': `attachment; filename="invoice-${invoiceData.metadata.invoiceNumber}.pdf"`,
